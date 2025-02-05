@@ -15,9 +15,8 @@ class Router {
     public function dispatch() {
         $requestUri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
         $requestMethod = $_SERVER['REQUEST_METHOD'];
-
-
-
+        
+     
         
         foreach ($this->routes as $route) {
             if ($route['route'] === $requestUri && $route['method'] === $requestMethod) {
@@ -34,7 +33,9 @@ class Router {
                     return $controllerInstance->$method();
                 } else {
                     http_response_code(404);
-                    echo "404 - Page Not Found?";
+                    echo $controllerClass."<br>".$method."<br>";
+                    echo $route['route'] ."===".$requestUri;
+                    echo "<br>"."404 - Page Not Found?";
                     return;
                 }
             }
